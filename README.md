@@ -1,4 +1,2 @@
-VM205
-=====
+# VM205 C library
 
-VM205 library
