@@ -21,7 +21,7 @@ file(GLOB VM205_SOURCE src/*.c)
 file(GLOB VM205_HEADERS include/vm205/*.h)
 
 # Create a library file
-add_library(velbus SHARED ${VM205_SOURCE})
+add_library(vm205 SHARED ${VM205_SOURCE})
 
 install(TARGETS vm205 LIBRARY DESTINATION lib)
 install(FILES ${VM205_HEADERS} DESTINATION include/vm205)
