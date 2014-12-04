@@ -11,8 +11,15 @@ cmake_minimum_required(VERSION 2.6)
 project(vm205)
 set(CMAKE_BUILD_TYPE Release)
 
+set(BCM2835_INCLUDE_PATH /usr/local/include)
+set(BCM2835_LIBRARY_PATH /usr/local/lib)
+
+find_library(BCM2835_LIB bcm2835 PATH ${BCM2835_LIBRARY_PATH})
+set(BCM2835_LIBRARIES ${BCM2835_LIB})
+
 # General includes
 include_directories(include/)
+include_directories(${BCM2835_INCLUDE_PATH})
 
 # Source files
 file(GLOB VM205_SOURCE src/*.c)
@@ -21,7 +28,10 @@ file(GLOB VM205_SOURCE src/*.c)
 file(GLOB VM205_HEADERS include/vm205/*.h)
 
 # Create a library file
-add_library(vm205 SHARED ${VM205_SOURCE})
+# add_library(vm205 SHARED ${VM205_SOURCE})
+add_executable(vm205 ${VM205_SOURCE})
 
-install(TARGETS vm205 LIBRARY DESTINATION lib)
-install(FILES ${VM205_HEADERS} DESTINATION include/vm205)
+target_link_libraries(vm205 ${BCM2835_LIBRARIES})
+
+# install(TARGETS vm205 LIBRARY DESTINATION lib)
+# install(FILES ${VM205_HEADERS} DESTINATION include/vm205)

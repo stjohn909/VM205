@@ -13,6 +13,9 @@
 #ifndef VM205_DEFS_H
 #define VM205_DEFS_H
 
+#include <string.h>
+#include <stdlib.h>
+
 #if defined(__cplusplus)
 #	define VM205_EXTERN extern "C"
 #else
