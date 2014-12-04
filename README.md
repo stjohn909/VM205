@@ -5,3 +5,5 @@ The goal of this library is to provide a basic communications API for the [Velle
 Currently, the only supported platform is the **Raspberry Pi**, with a recent distribution of **ArchLinux**.
 
 Documentation will become available after the first production release.
+
+Uses the bcm2835 library by Mike McCauley, which somes preinstalled in ArchLinux.
