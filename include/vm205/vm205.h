@@ -36,14 +36,14 @@ VM205_DECLARE(void) vm205_init();
  * @param setting Configuration setting to change.
  * @param value New value for the configuration setting.
  */
-VM205_DECLARE(void) vm205_set(char setting, char value);
+VM205_DECLARE(void) vm205_set(unsigned char setting, unsigned char value);
 
 /**
  * Send a command to the vm205 and read the response.
  * @param cmd Command to send.
  * @return Response value.
  */
-VM205_DECLARE(char) vm205_cmd(char cmd);
+VM205_DECLARE(unsigned char) vm205_cmd(unsigned char cmd);
 
 /**
  * Gets the sample buffer and logic analyzer data.

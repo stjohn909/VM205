@@ -22,8 +22,8 @@ VM205_DECLARE(void) vm205_init()
 }
 
 VM205_DECLARE(void) vm205_set(
-	char setting,
-	char value)
+	unsigned char setting,
+	unsigned char value)
 {
 	char in[2], out[2];
 	
@@ -33,8 +33,8 @@ VM205_DECLARE(void) vm205_set(
 	bcm2835_spi_transfernb(out, in, 2);
 }
 
-VM205_DECLARE(char) vm205_cmd(
-	char cmd)
+VM205_DECLARE(unsigned char) vm205_cmd(
+	unsigned char cmd)
 {
 	char in, out = cmd;
 	
