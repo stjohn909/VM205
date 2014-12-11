@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 	int i;
 
 	vm205_init();
-	vm205_set(VM205_SET_COUPLING, VM205_COUPLING_AC);
+	vm205_set(VM205_SET_COUPLING, VM205_COUPLING_DC);
 
 	vm205_acquire(&buffer);
 
