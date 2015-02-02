@@ -1,60 +1,87 @@
 /*
- * Copyright (C) 2014 Velleman nv
+ * Copyright (C) 2015 Velleman nv
  *
  * This software may be modified and distributed under the terms
  * of the MIT license.  See the LICENSE file for details.
  *
  */
 /**
- * @file vm205.h
- * @brief VM205 api
+ * @file Device.h
+ * @brief 
  * @author Gunther Van Butsele
  */
 #ifndef VM205_H
 #define VM205_H
 
-#include "vm205/defs.h"
-#include "vm205/settings.h"
+#include <SDL2/SDL.h>
 
-#define VM205_MAX_SAMPLES  800
+#include "vm205/Protocol.h"
+#include "vm205/Data.h"
+#include "vm205/Trigger.h"
 
-/**
- * Buffer for sample and logic analyzer data.
- */
-typedef struct vm205_buffer {
-	unsigned char samples[VM205_MAX_SAMPLES];
-} vm205_buffer_t;
+namespace vm205 {
 
-/**
- * Initializes communication with the VM205. Call this function once on
- * application startup.
- */
-VM205_DECLARE(void) vm205_init();
+typedef enum {
+	OSC_VDIV_5V,
+	OSC_VDIV_2V,
+	OSC_VDIV_1V,
+	OSC_VDIV_500mV,
+	OSC_VDIV_200mV,
+	OSC_VDIV_100mV
+} VoltsPerDivision;
 
-/**
- * Sets a configuration settings for the VM205.
- * @param setting Configuration setting to change.
- * @param value New value for the configuration setting.
- */
-VM205_DECLARE(void) vm205_set(unsigned char setting, unsigned char value);
+typedef enum {
+	OSC_INPUT_COUPLING_AC,
+	OSC_INPUT_COUPLING_DC
+} InputCoupling;
 
-/**
- * Send a command to the vm205 and read the response.
- * @param cmd Command to send.
- * @return Response value.
- */
-VM205_DECLARE(unsigned char) vm205_cmd(unsigned char cmd);
+typedef enum {
+	OSC_TIMEBASE_200ms,
+	OSC_TIMEBASE_100ms,
+	OSC_TIMEBASE_50ms,
+	OSC_TIMEBASE_20ms,
+	OSC_TIMEBASE_10ms,
+	OSC_TIMEBASE_5ms,
+	OSC_TIMEBASE_2ms,
+	OSC_TIMEBASE_1ms,
+	OSC_TIMEBASE_500us,
+	OSC_TIMEBASE_200us,
+	OSC_TIMEBASE_100us,
+	OSC_TIMEBASE_50us
+} TimeBase;
 
-/**
- * Gets the sample buffer and logic analyzer data.
- * @param buffer Buffer that will receive the data.
- */
-VM205_DECLARE(void) vm205_acquire(vm205_buffer_t *buffer);
+typedef enum {
+	OSC_YPOS_HIGH,
+	OSC_YPOS_CENTER,
+	OSC_YPOS_LOW
+} YPosition;
 
-/**
- * Closes communication with the VM205. Call this function once on
- * application exit.
- */
-VM205_DECLARE(void) vm205_quit();
+class VM205 {
+public:
+	VM205();
+	~VM205();
+	void acquireData();
+	void applySettings();
+	Data& getData();
+	void connect();
+	void disconnect();
+	VoltsPerDivision getVdiv() const;
+	void setVdiv(VoltsPerDivision vdiv);
+	InputCoupling getInputCoupling() const;
+	void setInputCoupling(InputCoupling inputCoupling);
+protected:
+	void transfer(char* buf, uint32_t len);
+	void transfer(char* tbuf, char* rbuf, uint32_t len);
+	
+	Data             _data;
+
+	VoltsPerDivision _vdiv;
+	TimeBase         _timebase;
+	InputCoupling    _inputCoupling;
+	Trigger          _trigger;
+	YPosition        _ypos;
+};
+
+}
 
 #endif
