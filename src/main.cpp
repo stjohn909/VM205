@@ -12,15 +12,16 @@ int main(int argc, char** argv) {
 		std::cout << SDL_GetError() << std::endl;
 		return 1;
 	}
-
+	
 	SDL_Window *win = nullptr;
+	// //SDL_WINDOW_FULLSCREEN | SDL_WINDOW_INPUT_GRABBED
 	win = SDL_CreateWindow(
 		"WFS210 demo!",
 		SDL_WINDOWPOS_UNDEFINED,
 		SDL_WINDOWPOS_UNDEFINED,
 		SCREEN_WIDTH,
 		SCREEN_HEIGHT,
-		SDL_WINDOW_FULLSCREEN | SDL_WINDOW_INPUT_GRABBED
+		SDL_WINDOW_RESIZABLE
 	);
 	if (win == nullptr){
 		std::cout << SDL_GetError() << std::endl;
@@ -40,7 +41,6 @@ int main(int argc, char** argv) {
 
 	bool done = false;
 	while (!done) {
-
 		SDL_Event e;
 		while(SDL_PollEvent(&e) != 0) {
 			switch(e.type) {
@@ -61,11 +61,11 @@ int main(int argc, char** argv) {
 						case SDLK_a: shield.setInputCoupling(OSC_INPUT_COUPLING_AC); break;
 						case SDLK_d: shield.setInputCoupling(OSC_INPUT_COUPLING_DC); break;
 					}
-					shield.applySettings();
+					// shield.applySettings(); // Comment this back in when the board is delivered.
 					break;
 			}
 		}
-		shield.acquireData();
+		//shield.acquireData();  // Uncomment this when the board is delivered.
 		viewer.draw();
 	}
 

@@ -1,61 +1,70 @@
-#include "vm205/VM205.h"
-
-#include "bcm2835.h"
+#include <bitset>
+#include "VM205.h"
 
 namespace vm205 {
 
 VM205::VM205():
-	_data(800),
-	_vdiv(OSC_VDIV_5V),
-	_timebase(OSC_TIMEBASE_50us),
-	_inputCoupling(OSC_INPUT_COUPLING_AC),
-	_ypos(OSC_YPOS_CENTER) {
-	
-	bcm2835_init();
-}
+	m_data(800),
+	m_vdiv(OSC_VDIV_5V),
+	m_timebase(OSC_TIMEBASE_50us),
+	m_inputCoupling(OSC_INPUT_COUPLING_AC),
+	m_ypos(OSC_YPOS_CENTER)
+	{ 
+		m_connection.start();
+	}
 
 VM205::~VM205() {
-	bcm2835_close();
+	m_connection.stop();
 }
 
 Data& VM205::getData() {
-	return _data;
+	return m_data;
 }
 
 VoltsPerDivision VM205::getVdiv() const {
-	return _vdiv;
+	return m_vdiv;
 }
 
 void VM205::setVdiv(VoltsPerDivision vdiv) {
-	_vdiv = vdiv;
+	m_vdiv = vdiv;
 }
 
 InputCoupling VM205::getInputCoupling() const {
-	return _inputCoupling;
+	return m_inputCoupling;
 }
 
 void VM205::setInputCoupling(InputCoupling inputCoupling) {
-	_inputCoupling = inputCoupling;
+	m_inputCoupling = inputCoupling;
 }
+
 
 void VM205::connect() {
-	bcm2835_spi_begin();
-	bcm2835_spi_setDataMode(BCM2835_SPI_MODE2);
-	bcm2835_spi_chipSelect(BCM2835_SPI_CS0);
-	bcm2835_spi_setBitOrder(BCM2835_SPI_BIT_ORDER_MSBFIRST);
-	bcm2835_spi_setClockDivider(500);
+
+	// Set spi flags for correct VM205 operation
+	uint32_t spi_flags = 0;
+	std::bitset<32> bits(spi_flags);
+	bits.set(1, true); // Sets to mode 2?
+	int speed = 1000000;
+
+	m_connection.open(speed, spi_flags);
+
+	if (m_connection.spi_handle == PI_BAD_FLAGS)
+	{
+		printf("Bad flags.\n");
+	}
+	
+	printf("SPI handle: %i\n", m_connection.spi_handle);
+
 }
 
-void VM205::transfer(char* buf, uint32_t len) {
-	bcm2835_spi_transfern(buf, len);
+
+void VM205::transfer(char* txbuf, char* rxbuf, uint32_t count) {
+	spi_xfer(m_connection.pi, m_connection.spi_handle, txbuf, rxbuf, count);
 }
 
-void VM205::transfer(char* tbuf, char* rbuf, uint32_t len) {
-	bcm2835_spi_transfernb(tbuf, rbuf, len);
-}
 
 void VM205::disconnect() {
-	bcm2835_spi_end();
+	m_connection.close();
 }
 
 void VM205::acquireData() {
@@ -80,18 +89,18 @@ void VM205::acquireData() {
 
 	transfer(out_array, in_array, 801);
 
-	for (int i=0; i<800; i++) _data[i] = in_array[i];
+	for (int i=0; i<800; i++) m_data[i] = in_array[i];
 }
 
 void VM205::applySettings() {
 	char in[2], out[2];
 
 	out[0] = OSC_SET_VDIV;
-	out[1] = 1 + (int)_vdiv;
+	out[1] = 1 + (int)m_vdiv;
 	transfer(out, in, 2);
 
 	out[0] = OSC_SET_INPUT_COUPLING;
-	out[1] = 1 + (int)_inputCoupling;
+	out[1] = 1 + (int)m_inputCoupling;
 	transfer(out, in, 2);
 }
 

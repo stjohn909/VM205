@@ -6,14 +6,16 @@ CXX = g++
 SDL_LIB = -L/usr/local/lib -lSDL2 -Wl,-rpath=/usr/local/lib
 SDL_INCLUDE = -I/usr/local/include
 
-BCM_LIB = -L/usr/local/lib -lbcm2835
-BCM_INCLUDE = -I/usr/local/include
+VM205_INCLUDE = -Iinclude/vm205
+
+PIGPIO_LIB = -L/usr/lib -lpigpiod_if2
+PIGPIO_INCLUDE = -I/usr/include
 
 GLES_LIB = -L/opt/vc/lib -lGLESv2
 GLES_INCLUDE = -I/opt/vc/include
 
-LIBS = $(SDL_LIB) $(BCM_LIB) $(GLES_LIB)
-INCS = -Iinclude $(SDL_INCLUDE) $(BCM_INCLUDE) $(GLES_INCLUDE)
+LIBS = $(SDL_LIB)  $(GLES_LIB) $(PIGPIO_LIB)
+INCS = -Iinclude $(SDL_INCLUDE) $(PIGPIO_INCLUDE) $(GLES_INCLUDE) $(VM205_INCLUDE)
 
 # You may need to change -std=c++11 to -std=c++0x if your compiler is a bit older
 CXXFLAGS = -Wall -c -std=c++11 $(INCS)

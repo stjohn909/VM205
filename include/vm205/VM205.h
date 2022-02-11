@@ -14,6 +14,7 @@
 #define VM205_H
 
 #include <SDL2/SDL.h>
+#include <pigpiod_if2.h>
 
 #include "vm205/Protocol.h"
 #include "vm205/Data.h"
@@ -56,7 +57,29 @@ typedef enum {
 	OSC_YPOS_LOW
 } YPosition;
 
+struct PigpioSpiConnection {
+	int pi;
+	int spi_handle;
+
+	// We will always connect to the local
+	// host and port at 0,0 because we're 
+	// accessing GPIO-connected hardware.
+	void start() {
+		pi = pigpio_start(0,0);
+	}
+	void stop() {
+		pigpio_stop(pi);
+	}
+	void open(int s_baud, uint32_t s_flags ) {
+		spi_handle = spi_open(pi, 0, s_baud, s_flags);
+	}
+	void close() {
+		spi_close(pi, spi_handle);
+	};
+};
+
 class VM205 {
+
 public:
 	VM205();
 	~VM205();
@@ -68,18 +91,18 @@ public:
 	VoltsPerDivision getVdiv() const;
 	void setVdiv(VoltsPerDivision vdiv);
 	InputCoupling getInputCoupling() const;
-	void setInputCoupling(InputCoupling inputCoupling);
-protected:
-	void transfer(char* buf, uint32_t len);
-	void transfer(char* tbuf, char* rbuf, uint32_t len);
-	
-	Data             _data;
+	void setInputCoupling(InputCoupling inputCoupling);	
 
-	VoltsPerDivision _vdiv;
-	TimeBase         _timebase;
-	InputCoupling    _inputCoupling;
-	Trigger          _trigger;
-	YPosition        _ypos;
+protected:
+	void transfer(char* txbuf, char* rxbuf, uint32_t count);
+	
+	PigpioSpiConnection m_connection;
+	Data             	m_data;
+	VoltsPerDivision 	m_vdiv;
+	TimeBase         	m_timebase;
+	InputCoupling    	m_inputCoupling;
+	Trigger          	m_trigger;
+	YPosition        	m_ypos;
 };
 
 }
