@@ -17,7 +17,7 @@ The API and demo application successfully compile and run without the VM205 hard
 
 I've also been messing around with a clone of [xhargh's repo](https://github.com/xhargh/VM205) for a couple of days before properly forking it and committing my local changes to this repo, apologies.
 
-Foo
+
 References:
 [https://github.com/joan2937/pigpio](https://github.com/joan2937) - This is the source repo for the pigpio library.  It contains many useful examples.
 
