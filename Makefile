@@ -1,4 +1,4 @@
-CXX = g++
+CXX = g++ -pthread
 
 # Update these paths to match your installation
 # You may also need to update the linker option rpath, which sets where to look for
@@ -8,7 +8,7 @@ SDL_INCLUDE = -I/usr/local/include
 
 VM205_INCLUDE = -Iinclude/vm205
 
-PIGPIO_LIB = -L/usr/lib -lpigpiod_if2
+PIGPIO_LIB = -L/usr/lib -lpigpio
 PIGPIO_INCLUDE = -I/usr/include
 
 GLES_LIB = -L/opt/vc/lib -lGLESv2

@@ -14,7 +14,7 @@
 #define VM205_H
 
 #include <SDL2/SDL.h>
-#include <pigpiod_if2.h>
+#include <pigpio.h>
 
 #include "vm205/Protocol.h"
 #include "vm205/Data.h"
@@ -58,23 +58,23 @@ typedef enum {
 } YPosition;
 
 struct PigpioSpiConnection {
-	int pi;
-	int spi_handle;
+	int pi = -1;
+	int spi_handle = -1;
 
 	// We will always connect to the local
 	// host and port at 0,0 because we're 
 	// accessing GPIO-connected hardware.
 	void start() {
-		pi = pigpio_start(0,0);
+		gpioInitialise();
 	}
 	void stop() {
-		pigpio_stop(pi);
+		gpioTerminate();
 	}
-	void open(int s_baud, uint32_t s_flags ) {
-		spi_handle = spi_open(pi, 0, s_baud, s_flags);
+	void open(int s_baud) {
+		spi_handle = spiOpen(0, s_baud, PI_SPI_FLAGS_MODE(2));
 	}
 	void close() {
-		spi_close(pi, spi_handle);
+		spiClose(spi_handle);
 	};
 };
 

@@ -1,0 +1,5 @@
+make vm205 --dry-run --keep-going --print-directory
+make: Entering directory '/home/pi/git/VM205'
+make: 'vm205' is up to date.
+make: Leaving directory '/home/pi/git/VM205'
+ 

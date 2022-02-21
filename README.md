@@ -10,10 +10,8 @@ Required packages:
 * pigpio
 * SDL
 
-The Pi is accessed via XRDP, since a local display is required by the main app.
-
-The API and demo application successfully compile and run without the VM205 hardware connected and with the calls to querying the device commented out, which is as far as I can go until the board arrives in a couple of days. 
-
+Requires sudo to run.  
+TODO: Add support for pigpiod and a GUI that works on a remote display.
 
 I've also been messing around with a clone of [xhargh's repo](https://github.com/xhargh/VM205) for a couple of days before properly forking it and committing my local changes to this repo, apologies.
 
