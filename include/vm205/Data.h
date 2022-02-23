@@ -27,7 +27,7 @@ public:
 protected:
 private:
 	Value* _values;
-	int _size;
+	int m_size;
 };
 
 }

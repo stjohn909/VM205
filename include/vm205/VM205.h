@@ -15,10 +15,11 @@
 
 #include <SDL2/SDL.h>
 #include <pigpio.h>
-
+#include <pigpiod_if2.h>
 #include "vm205/Protocol.h"
 #include "vm205/Data.h"
 #include "vm205/Trigger.h"
+#include "vm205/PigSpi.h"
 
 namespace vm205 {
 
@@ -57,27 +58,6 @@ typedef enum {
 	OSC_YPOS_LOW
 } YPosition;
 
-struct PigpioSpiConnection {
-	int pi = -1;
-	int spi_handle = -1;
-
-	// We will always connect to the local
-	// host and port at 0,0 because we're 
-	// accessing GPIO-connected hardware.
-	void start() {
-		gpioInitialise();
-	}
-	void stop() {
-		gpioTerminate();
-	}
-	void open(int s_baud) {
-		spi_handle = spiOpen(0, s_baud, PI_SPI_FLAGS_MODE(2));
-	}
-	void close() {
-		spiClose(spi_handle);
-	};
-};
-
 class VM205 {
 
 public:
@@ -86,17 +66,18 @@ public:
 	void acquireData();
 	void applySettings();
 	Data& getData();
+	PigSpi connection;
 	void connect();
 	void disconnect();
 	VoltsPerDivision getVdiv() const;
 	void setVdiv(VoltsPerDivision vdiv);
 	InputCoupling getInputCoupling() const;
-	void setInputCoupling(InputCoupling inputCoupling);	
+	void setInputCoupling(InputCoupling inputCoupling);
+	
 
 protected:
 	void transfer(char* txbuf, char* rxbuf, uint32_t count);
-	
-	PigpioSpiConnection m_connection;
+	bool				m_daemon;
 	Data             	m_data;
 	VoltsPerDivision 	m_vdiv;
 	TimeBase         	m_timebase;

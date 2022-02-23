@@ -3,8 +3,8 @@
 namespace vm205 {
 
 Trace::Trace():
-	_size(800) {
-	_points = new SDL_Point[_size];
+	m_size(800) {
+	_points = new SDL_Point[m_size];
 }
 
 Trace::~Trace() {
@@ -20,7 +20,7 @@ SDL_Point* Trace::points() {
 }
 
 int Trace::size() const {
-	return _size;
+	return m_size;
 }
 
 SDL_Point& Trace::operator[](int index) {

@@ -28,7 +28,7 @@ public:
 protected:
 private:
 	SDL_Point *_points;
-	int _size;
+	int m_size;
 };
 
 }

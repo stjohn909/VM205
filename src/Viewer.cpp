@@ -35,10 +35,11 @@ void Viewer::buildTrace() {
 
 void Viewer::draw() {
 
-	SDL_SetRenderDrawColor(_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);	
+	// For that old blue Tektronik look. :)
+	SDL_SetRenderDrawColor(_renderer, 32, 32, 41, SDL_ALPHA_OPAQUE);	
 	SDL_RenderClear(_renderer);
 
-	SDL_SetRenderDrawColor(_renderer, 0, 255, 0, SDL_ALPHA_OPAQUE);
+	SDL_SetRenderDrawColor(_renderer, 0, 127, 127, SDL_ALPHA_OPAQUE);
 
 	buildTrace();
 

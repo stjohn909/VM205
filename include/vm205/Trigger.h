@@ -31,9 +31,9 @@ public:
 	Trigger();
 protected:
 private:
-	TriggerLevel _level;
-	TriggerEdge  _edge;
-	bool            _enabled;
+	TriggerLevel m_level;
+	TriggerEdge  m_edge;
+	bool         m_enabled;
 };
 
 }

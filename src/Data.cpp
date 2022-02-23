@@ -3,7 +3,7 @@
 namespace vm205 {
 
 Data::Data(int size):
-	_size(size) {
+	m_size(size) {
 	_values = new Value[size];
 }
 
@@ -20,7 +20,7 @@ Value& Data::operator[](int index) {
 }
 
 int Data::size() const {
-	return _size;
+	return m_size;
 }
 
 }

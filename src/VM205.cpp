@@ -1,6 +1,4 @@
-#include <bitset>
 #include "vm205/VM205.h"
-#include <pigpiod_if2.h>
 
 namespace vm205 {
 
@@ -10,12 +8,12 @@ VM205::VM205():
 	m_timebase(OSC_TIMEBASE_50us),
 	m_inputCoupling(OSC_INPUT_COUPLING_AC),
 	m_ypos(OSC_YPOS_CENTER)
-	{ 
-		m_connection.start();
+	{	
 	}
 
+
 VM205::~VM205() {
-	m_connection.stop();
+	connection.stop();
 }
 
 Data& VM205::getData() {
@@ -38,41 +36,37 @@ void VM205::setInputCoupling(InputCoupling inputCoupling) {
 	m_inputCoupling = inputCoupling;
 }
 
-
 void VM205::connect() {
 
-	/*
-	// Set spi flags for correct VM205 operation
-	uint32_t spi_flags = 0;
-	std::bitset<32> bits(spi_flags);
-	bits.set(1, true); // Sets to mode 2?
+	printf("Using pigpio daemon: %i\n", connection.getdaemon());
+	
+	connection.start();
 
-	int speed = 100000;
-	//spi_flags = 000000110010;
-	*/
-
-	m_connection.open(50000);
-
-	if (m_connection.spi_handle == PI_BAD_FLAGS)
+	connection.open(1000000);  // SPI is hard set to Mode 2.
+	if (connection.getspihandle() == PI_BAD_FLAGS)
 	{
 		printf("Bad flags.\n");
 	}
 	
-	printf("SPI handle: %i\n", m_connection.spi_handle);
-
+	printf("SPI handle: %i\n", connection.getspihandle());
 }
 
 
 void VM205::transfer(char* txbuf, char* rxbuf, uint32_t count) {
-	spiXfer(m_connection.spi_handle, txbuf, rxbuf, count);
+
+	if (this->connection.getdaemon() == true)
+	{
+		spi_xfer(0, connection.getspihandle(), txbuf, rxbuf, count);
+		return;
+	}
+	spiXfer(connection.getspihandle(), txbuf, rxbuf, count);
 
 }
-
 
 void VM205::disconnect() {
-	m_connection.close();
+	connection.close();
+	connection.stop();
 }
-
 
 void VM205::acquireData() {
 	//printf("Acquiring Data....\n");
@@ -87,10 +81,8 @@ void VM205::acquireData() {
 
 	do {
 		SDL_Delay(20);
-		//printf("Transferring....\n");
 		transfer(&out, &in, 1);
-		//printf("Transfer in: %#02x\n", in);
-		//safety_out++;
+
 	} while (in != OSC_DATA_READY );
 
 	// if(in == OSC_DATA_READY)
@@ -106,14 +98,13 @@ void VM205::acquireData() {
 
 	transfer(out_array, in_array, 801);
 
-	printf("\nBegin received data\n");
+	//printf("\nBegin received data\n");
 	for (int i=0; i<800; i++)
 	{
 		m_data[i] = in_array[i];
-		printf("%#02x", m_data[i]);
+		//printf("%#02x", m_data[i]);
 	}
-
-	printf("\nEnd of received data\n");
+	//printf("\nEnd of received data\n");
 }
 
 void VM205::applySettings() {

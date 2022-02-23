@@ -1,0 +1,330 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 4.3
+# Built for aarch64-unknown-linux-gnu
+# Copyright (C) 1988-2020 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Tue Feb 22 22:49:03 2022
+
+# Variables
+
+# environment
+LC_ALL = C
+# environment
+VSCODE_CWD = /home/pi
+# makefile (from 'Makefile', line 22)
+LIBS = $(PIGPIO_LIB) $(PIGPIOD_LIB) $(SDL_LIB) $(GLES_LIB) $(GTKMM_LIB)
+# environment
+TEXTDOMAIN = Linux-PAM
+# default
+MAKE_COMMAND := make
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# default
+.VARIABLES := 
+# environment
+PWD = /home/pi/git/VM205
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+VSCODE_LOG_STACK = false
+# automatic
+%F = $(notdir $%)
+# environment
+LANG = C
+# makefile (from 'Makefile', line 12)
+PIGPIO_INCLUDE = -I/usr/include
+# default
+.LOADED := 
+# default
+.INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
+# makefile
+MAKEFLAGS = pqrR
+# makefile
+CURDIR := /home/pi/git/VM205
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# makefile (from 'Makefile', line 30)
+SRCS = src/main.cpp src/Data.cpp src/Trace.cpp src/PigSpi.cpp src/VM205.cpp src/Viewer.cpp src/Trigger.cpp 
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+MFLAGS = -pqrR
+# default
+.SHELLFLAGS := -c
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# makefile (from 'Makefile', line 1)
+MAKEFILE_LIST := Makefile
+# makefile (from 'Makefile', line 20)
+GTKMM_INCLUDE = `pkg-config --cflags gtkmm-3.0`
+# automatic
+@F = $(notdir $@)
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# makefile (from 'Makefile', line 9)
+VM205_INCLUDE = -I./include/vm205
+# environment
+XDG_SESSION_TYPE = tty
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# makefile (from 'Makefile', line 16)
+GLES_LIB = -L/opt/vc/lib -lGLESv2
+# automatic
+*F = $(notdir $*)
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{}}
+# default
+MAKE_HOST := aarch64-unknown-linux-gnu
+# makefile (from 'Makefile', line 41)
+OBJS = $(SRCS:.cpp=.o)
+# makefile (from 'Makefile', line 11)
+PIGPIO_LIB = -L/usr/lib -lpigpio
+# makefile
+SHELL = /bin/sh
+# default
+MAKECMDGOALS := all
+# environment
+SHLVL = 1
+# environment
+MAKELEVEL := 0
+# default
+MAKE = $(MAKE_COMMAND)
+# environment
+PATH = /home/pi/.vscode-server/bin/f80445acd5a3dadef24aa209168452a3d97cc326/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
+# default
+MAKEFILES := 
+# environment
+MOTD_SHOWN = pam
+# automatic
+^F = $(notdir $^)
+# environment
+SSH_CLIENT = 10.0.1.40 54603 22
+# makefile (from 'Makefile', line 23)
+INCS = -Iinclude $(PIGPIO_INCLUDE) $(SDL_INCLUDE) $(GLES_INCLUDE) $(GTKMM_INCLUDE) $(VM205_INCLUDE)
+# environment
+VSCODE_LOG_NATIVE = false
+# makefile (from 'Makefile', line 17)
+GLES_INCLUDE = -I/opt/vc/include
+# automatic
+?F = $(notdir $?)
+# environment
+LS_COLORS = 
+# automatic
++F = $(notdir $+)
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+BROWSER = /home/pi/.vscode-server/bin/f80445acd5a3dadef24aa209168452a3d97cc326/bin/helpers/browser.sh
+# environment
+LOGNAME = pi
+# makefile
+.DEFAULT_GOAL := all
+# environment
+USER = pi
+# default
+MAKE_VERSION := 4.3
+# makefile (from 'Makefile', line 27)
+LDFLAGS = $(LIBS)
+# environment
+VSCODE_EXTHOST_WILL_SEND_SOCKET = true
+# environment
+VSCODE_AGENT_FOLDER = /home/pi/.vscode-server
+# environment
+_ = /home/pi/.vscode-server/bin/f80445acd5a3dadef24aa209168452a3d97cc326/node
+# environment
+XDG_RUNTIME_DIR = /run/user/1000
+# environment
+VSCODE_IPC_HOOK_CLI = /run/user/1000/vscode-ipc-d90980dc-954a-4107-a8aa-656e5dd560c2.sock
+# environment
+XDG_SESSION_CLASS = user
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/services/extensions/node/extensionHostProcess
+# environment
+HOME = /home/pi
+# makefile (from 'Makefile', line 7)
+SDL_INCLUDE = -I/usr/local/include
+# environment
+XDG_SESSION_ID = 2
+# default
+.RECIPEPREFIX := 
+# automatic
+<F = $(notdir $<)
+# default
+SUFFIXES := 
+# makefile (from 'Makefile', line 28)
+TARGET = vm205
+# makefile (from 'Makefile', line 19)
+GTKMM_LIB = `pkg-config --libs gtkmm-3.0`
+# makefile (from 'Makefile', line 6)
+SDL_LIB = -L/usr/local/lib -lSDL2 -Wl,-rpath=/usr/local/lib
+# makefile (from 'Makefile', line 26)
+CXXFLAGS = -Wall -c -std=c++11 $(INCS)
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink load
+# makefile (from 'Makefile', line 1)
+CXX = g++
+# makefile (from 'Makefile', line 14)
+PIGPIOD_LIB = -L/usr/lib -lpigpiod_if2
+# environment
+SSH_CONNECTION = 10.0.1.40 54603 10.0.1.42 22
+# variable set hash-table stats:
+# Load=85/1024=8%, Rehash=0, Collisions=6/130=5%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 45826, inode 260503): 12 files, no impossibilities.
+
+# 12 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+# No implicit rules.
+
+# Files
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-22 22:46:26.258059913
+#  File has been updated.
+#  Successfully updated.
+
+clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 49):
+	@$(RM) $(TARGET) $(OBJS)
+
+# Not a target:
+src/Trigger.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-22 22:46:53.085732433
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/PigSpi.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-22 22:46:47.321802057
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/Trace.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-22 22:46:47.009805836
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/main.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-22 22:46:44.025842045
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+all: vm205
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/11=0%
+
+# Not a target:
+src/VM205.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-22 22:46:50.137767993
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/Viewer.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-22 22:46:52.921734408
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+src/Data.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-02-22 22:46:44.213839762
+#  File has been updated.
+#  Successfully updated.
+
+vm205: src/main.o src/Data.o src/Trace.o src/PigSpi.o src/VM205.o src/Viewer.o src/Trigger.o
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: ''
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := vm205
+# automatic
+# * := 
+# automatic
+# < := src/main.o
+# automatic
+# + := src/main.o src/Data.o src/Trace.o src/PigSpi.o src/VM205.o src/Viewer.o src/Trigger.o
+# automatic
+# % := 
+# automatic
+# ^ := src/main.o src/Data.o src/Trace.o src/PigSpi.o src/VM205.o src/Viewer.o src/Trigger.o
+# automatic
+# ? := src/main.o src/Data.o src/Trace.o src/PigSpi.o src/VM205.o src/Viewer.o src/Trigger.o
+# automatic
+# | := 
+# variable set hash-table stats:
+ 
+# Load=8/32=25%, Rehash=0, Collisions=9/21=43%
+#  recipe to execute (from 'Makefile', line 46):
+	$(CXX) $^ $(LDFLAGS) -o $@
+
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# files hash-table stats:
+# Load=13/1024=1%, Rehash=0, Collisions=1/34=3%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 26 / storage = 238 B / avg = 9 B
+# current buf: size = 8162 B / used = 238 B / count = 26 / avg = 9 B
+
+# strcache performance: lookups = 36 / hit rate = 27%
+# hash-table stats:
+# Load=26/8192=0%, Rehash=0, Collisions=0/36=0%
+# Finished Make data base on Tue Feb 22 22:49:03 2022
+
+ 
