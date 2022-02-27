@@ -19,13 +19,22 @@ bool PigSpi::getdaemon()
 {
 	return m_daemon;
 }
-	
+
+const char * PigSpi::hostname()
+{
+	// from string IP address.
+	// 
+
+	return "localhost";
+}
+
 void PigSpi::start() {
+
 	if (m_daemon == true)
 	{
 		printf("Congrats, you're using pigpiod!\n");
 		// "0,0" means "start pigpio on the local host and port."
-		pigpio_start(0,0);
+		pigpio_start(this->hostname(),0);
 		return;
 	}
 	gpioInitialise();
@@ -42,7 +51,7 @@ void PigSpi::stop() {
 
 void PigSpi::open(int baud) {
 	if (m_daemon == true)
-	{
+	{	
 		m_spi_handle = spi_open(0, 0, baud, PI_SPI_FLAGS_MODE(2));
 		return;
 	}

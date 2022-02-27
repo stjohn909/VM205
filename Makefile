@@ -16,11 +16,8 @@ PIGPIOD_LIB = -L/usr/lib -lpigpiod_if2
 GLES_LIB = -L/opt/vc/lib -lGLESv2
 GLES_INCLUDE = -I/opt/vc/include
 
-GTKMM_LIB = `pkg-config --libs gtkmm-3.0`
-GTKMM_INCLUDE = `pkg-config --cflags gtkmm-3.0`
-
-LIBS = $(PIGPIO_LIB) $(PIGPIOD_LIB) $(SDL_LIB) $(GLES_LIB) $(GTKMM_LIB)
-INCS = -Iinclude $(PIGPIO_INCLUDE) $(SDL_INCLUDE) $(GLES_INCLUDE) $(GTKMM_INCLUDE) $(VM205_INCLUDE)
+LIBS = $(PIGPIO_LIB) $(PIGPIOD_LIB) $(SDL_LIB) $(GLES_LIB)
+INCS = -Iinclude $(PIGPIO_INCLUDE) $(SDL_INCLUDE) $(GLES_INCLUDE) $(VM205_INCLUDE)
 
 # You may need to change -std=c++11 to -std=c++0x if your compiler is a bit older
 CXXFLAGS = -Wall -c -std=c++11 $(INCS)

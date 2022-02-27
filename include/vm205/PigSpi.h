@@ -12,6 +12,8 @@ is necessary for a pigpiod connection.
 #include <pigpio.h>
 #include <pigpiod_if2.h>
 #include <stdio.h>
+#include <netdb.h>
+#include <arpa/inet.h>
 
 namespace vm205 {
 
@@ -19,6 +21,8 @@ class PigSpi {
 	public:
 		PigSpi();
 		~PigSpi();
+		const char * hostname();
+		int		port;
 		void 	setdaemon(bool daemon);
 		bool	getdaemon();
 		int		getspihandle();

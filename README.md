@@ -1,8 +1,8 @@
-# VM205 C library using pigpio and pigpiod, (RPi, ArchLinux)
+# VM205 C library using pigpio and pigpiod, (RPi, PiOS Bullseye)
 
 This library provides an API to the [Whadda WPSH206/Velleman VM205](https://whadda.com/product/oscilloscope-and-logic-analyzer-shield-for-raspberry-pi-wpsh206/) (Raspberry Pi oscilloscope shield) using the C interface to the pigpio daemon.  
 
-This library is in development on a Raspberry Pi 3B+ running Pi OS Bullseye, although theoretically it should function on any OpenGL-enabled pi running pigpiod.
+Development is on a Raspberry Pi 3B+ running Pi OS Bullseye, although theoretically it should function on any OpenGL-enabled pi running pigpiod.
 
 The VM205 has been rebranded and is now sold by [Whadda](https://whadda.com) as the VPSH206, but you'll have better luck searching for forum discussions if you reference the VM205.  
 
@@ -11,9 +11,10 @@ Required packages:
 * pigpiod_if2
 * SDL
 
-Requires sudo to run without the pigpio daemon running.
+Requires sudo to run if pigpiod is not running.
 
-The SDL window displays over XRDP when using the pigpio daemon. 
+The SDL window displays over XRDP when using the pigpio daemon. Other remote
+viewers not tested.
 
 Oscilloscope tests good with a 220Hz sine wave from a Tiptop Z3000 eurorack oscillator module.   Logic probe inputs have not been tested.
 
