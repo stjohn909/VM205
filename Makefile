@@ -16,7 +16,6 @@ PIGPIOD_LIB = -L/usr/lib -lpigpiod_if2
 GLES_LIB = -L/opt/vc/lib -lGLESv2
 GLES_INCLUDE = -I/opt/vc/include
 
-# Add the agar libs and flags if you implement the agar GUI system.
 LIBS = $(PIGPIO_LIB) $(PIGPIOD_LIB)  $(GLES_LIB)  $(SDL_LIB)
 INCS = -Iinclude $(PIGPIO_INCLUDE) $(GLES_INCLUDE) $(SDL_INCLUDE) $(VM205_INCLUDE)
 
