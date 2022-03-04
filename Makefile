@@ -6,9 +6,6 @@ CXX = g++
 SDL_LIB = -L/usr/local/lib -lSDL2 -Wl,-rpath=/usr/local/lib
 SDL_INCLUDE = -I/usr/local/include
 
-AGAR_INCLUDE = `agar-config --cflags`
-AGAR_LIB = `agar-config --libs`
-
 VM205_INCLUDE = -I./include/vm205
 
 PIGPIO_LIB = -L/usr/lib -lpigpio
