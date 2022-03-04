@@ -73,7 +73,11 @@ public:
 	void setVdiv(VoltsPerDivision vdiv);
 	InputCoupling getInputCoupling() const;
 	void setInputCoupling(InputCoupling inputCoupling);
-	
+	Trigger getTrigger();
+	void setTrigger();
+	bool getRun();
+	bool runStop();
+
 
 protected:
 	void transfer(char* txbuf, char* rxbuf, uint32_t count);
@@ -82,8 +86,9 @@ protected:
 	VoltsPerDivision 	m_vdiv;
 	TimeBase         	m_timebase;
 	InputCoupling    	m_inputCoupling;
-	Trigger          	m_trigger;
 	YPosition        	m_ypos;
+	Trigger				m_trigger;
+	bool				m_run = true;
 };
 
 }

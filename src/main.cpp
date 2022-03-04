@@ -12,25 +12,25 @@ using namespace vm205;
 
 int main(int argc, char **argv) {
 
+
 	// First we need to know which interface we will use to create a pigpio SPI
 	// connection.  As root or sudo, we can connect directly to the SPI bus through pigpio, 
-	// or as a non-privileged user, we can `connect through the pigpio daemon (pigpiod),
-	// if it's available. 
-	// TODO:  Find out if there's a speed penalty for going through pigpiod
-	bool use_daemon = false;
+	// or as a non-privileged user, we can connect through the pigpio daemon (pigpiod),
+	// if it's available, but we don't use the daemon by default because we don't support
+	// detection of a pigpiod process.
+	bool daemon = false;
 
 	// Parse the input args to set use_daemon. If the -d flag is present, 
 	// set use_daemon to true, which will open a connection to the SPI bus
-	// via the pigpio daemon.
-	//extern char *optarg;
-	//extern int optind;
-	int c;
+	// via the pigpio daemon.  This is the most convenient mode for fast
+	// test iteration.
+	int arg;
 	int err = 0;
 	static char usage[] = "usage: %s [-d] [-h] \n";
-	while ((c = getopt(argc, argv, "dh")) != -1)
-		switch (c) {
+	while ((arg = getopt(argc, argv, "dh")) != -1)
+		switch (arg) {
 			case 'd':
-				use_daemon = true;
+				daemon = true;
 				break;
 			case 'h':
 				fprintf(stderr, usage, argv[0]);
@@ -38,6 +38,15 @@ int main(int argc, char **argv) {
 		}
 	if(err > 0)
 		return 1;
+
+	
+	// VM 205 hardware initialization and connection
+	VM205 shield;
+	shield.connection.setdaemon(daemon);
+	shield.connection.sethostname("localhost");
+	shield.connect();
+	
+	
 	// Since we're not drawing anything right now, all we care about is events.
 	if (SDL_Init(SDL_INIT_EVERYTHING) == -1) {
 	//if (SDL_Init(SDL_INIT_EVENTS) == -1){
@@ -45,11 +54,15 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 	
-	//TODO: Build a better viewer with GTK.  Or send the data to Omniverse!
+
+	// TODO: Implement a GUI.  Current candidates are libagar and Qt,
+	// but cross-compiling Qt is proving to be a challenge, and a 1GB
+	// RPi is not a good Qt dev machine.
+	
 	SDL_Window *win = nullptr;
-	// //SDL_WINDOW_FULLSCREEN | SDL_WINDOW_INPUT_GRABBED
+	// SDL_WINDOW_FULLSCREEN | SDL_WINDOW_INPUT_GRABBED
 	win = SDL_CreateWindow(
-		"VM205 demo!",
+		"VM205 with pigpio",
 		SDL_WINDOWPOS_UNDEFINED,
 		SDL_WINDOWPOS_UNDEFINED,
 		1280,
@@ -60,7 +73,7 @@ int main(int argc, char **argv) {
 		std::cout << SDL_GetError() << std::endl;
 		return 1;
 	}
-
+	
 	SDL_Renderer *renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == nullptr){
 		std::cout << SDL_GetError() << std::endl;
@@ -68,12 +81,9 @@ int main(int argc, char **argv) {
 	}
 	
 
-	VM205 shield;
-	shield.connection.setdaemon(use_daemon);
-
-	shield.connect();
 	Viewer viewer(renderer, shield);
 	bool done = false;
+	
 	while (!done) {
 		SDL_Event e;
 		while(SDL_PollEvent(&e) != 0) {
@@ -95,21 +105,28 @@ int main(int argc, char **argv) {
 						case SDLK_6: shield.setVdiv(OSC_VDIV_100mV); break;
 						case SDLK_a: shield.setInputCoupling(OSC_INPUT_COUPLING_AC); break;
 						case SDLK_d: shield.setInputCoupling(OSC_INPUT_COUPLING_DC); break;
+						case SDLK_t: shield.setTrigger(); break;
+
 					
 					}	
 					shield.applySettings();
 					break;
 			}
 		}
-		shield.acquireData();  // Uncomment this when the board is delivered.
+		if (shield.getRun() == false)
+			shield.acquireData();
+			
 		viewer.draw();
 	}
+	
 
 	shield.disconnect();
-	
+
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(win);
 	SDL_Quit();
 	
 	return 0;
 }
+
+

@@ -3,9 +3,9 @@
 namespace vm205 {
 
 Trigger::Trigger():
-	m_level(OSC_TRIGGER_LVL_CENTER),
-	m_edge(OSC_TRIGGER_EDGE_RISING),
-	m_enabled(false) {
+	level(OSC_TRIGGER_LVL_CENTER),
+	edge(OSC_TRIGGER_EDGE_RISING),
+	enabled(false) {
 
 }
 

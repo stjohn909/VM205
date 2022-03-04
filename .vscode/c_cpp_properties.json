@@ -6,7 +6,8 @@
                 "${workspaceFolder}/**",
                 "/usr/include/gtkmm-3.0",
                 "/usr/include/glibmm-2.4",
-                "/usr/include/sigc++-2.0"
+                "/usr/include/sigc++-2.0",
+                "/usr/local/include/agar"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

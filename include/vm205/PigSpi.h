@@ -14,25 +14,32 @@ is necessary for a pigpiod connection.
 #include <stdio.h>
 #include <netdb.h>
 #include <arpa/inet.h>
+#include <string>
+
+using namespace std;
 
 namespace vm205 {
 
 class PigSpi {
+
 	public:
 		PigSpi();
 		~PigSpi();
-		const char * hostname();
-		int		port;
+		string 	hostname = "localhost";
+		void	sethostname(string name);
 		void 	setdaemon(bool daemon);
 		bool	getdaemon();
+		int		getpi();
 		int		getspihandle();
 		void 	start();
 		void 	stop();
 		void 	open(int baud);
 		void 	close();
 	private:
-		int m_spi_handle = -1;
-		int m_daemon = false;	
+		int 	m_spi_handle = -1;
+		int 	m_daemon = false;
+		int 	m_pi = -1;
+		const char* m_hostname = hostname.c_str();
 };
 	
 }

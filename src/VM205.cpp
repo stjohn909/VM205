@@ -1,4 +1,5 @@
 #include "vm205/VM205.h"
+#include <strings.h>
 
 namespace vm205 {
 
@@ -7,7 +8,9 @@ VM205::VM205():
 	m_vdiv(OSC_VDIV_5V),
 	m_timebase(OSC_TIMEBASE_50us),
 	m_inputCoupling(OSC_INPUT_COUPLING_AC),
-	m_ypos(OSC_YPOS_CENTER)
+	m_ypos(OSC_YPOS_CENTER),
+	m_trigger(),
+	m_run()
 	{	
 	}
 
@@ -39,15 +42,12 @@ void VM205::setInputCoupling(InputCoupling inputCoupling) {
 void VM205::connect() {
 
 	printf("Using pigpio daemon: %i\n", connection.getdaemon());
-	
 	connection.start();
-
 	connection.open(1000000);  // SPI is hard set to Mode 2.
 	if (connection.getspihandle() == PI_BAD_FLAGS)
 	{
 		printf("Bad flags.\n");
 	}
-	
 	printf("SPI handle: %i\n", connection.getspihandle());
 }
 
@@ -118,7 +118,20 @@ void VM205::applySettings() {
 	out[0] = OSC_SET_INPUT_COUPLING;
 	out[1] = 1 + (int)m_inputCoupling;
 	transfer(out, in, 2);
-	printf("Settings applied...\n");
 }
+
+void VM205::setTrigger() {
+	m_trigger.enabled = !m_trigger.enabled;
+	char in[2], out[2];
+	out[0] = OSC_SET_TRIGGER;
+
+	out[1] = 1 + ((int)m_trigger.enabled); // should be 0x01 or 0x02
+ 	printf ("Trigger enabled: %x\n", m_trigger.enabled);
+	transfer(out, in, 2);
+}
+
+bool VM205::getRun() { return m_run;}
+
+bool VM205::runStop() { return !m_run; }
 
 }
