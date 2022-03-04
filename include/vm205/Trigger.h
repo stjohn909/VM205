@@ -16,24 +16,26 @@
 namespace vm205 {
 
 typedef enum {
-	OSC_TRIGGER_LVL_HIGH,
-	OSC_TRIGGER_LVL_CENTER,
-	OSC_TRIGGER_LVL_LOW
+	OSC_TRIGGER_LVL_HIGH = 0x00,
+	OSC_TRIGGER_LVL_CENTER = 0xff,
+	OSC_TRIGGER_LVL_LOW = 0x7f
 } TriggerLevel;
 
+
 typedef enum {
-	OSC_TRIGGER_EDGE_RISING,
-	OSC_TRIGGER_EDGE_FALLING
+	OSC_TRIGGER_EDGE_RISING = 0x03,
+	OSC_TRIGGER_EDGE_FALLING 
 } TriggerEdge;
 
 class Trigger {
 public:
 	Trigger();
+	TriggerLevel 	level;
+	TriggerEdge 	edge;
+	bool			enabled;
 protected:
 private:
-	TriggerLevel m_level;
-	TriggerEdge  m_edge;
-	bool         m_enabled;
+
 };
 
 }
